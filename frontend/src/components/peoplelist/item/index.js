@@ -17,7 +17,7 @@ const PersonListItem = (props) => {
 
 PersonListItem.propTypes = {
   name: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired
+  email: PropTypes.string.isRequired
 }
 
 export default PersonListItem
