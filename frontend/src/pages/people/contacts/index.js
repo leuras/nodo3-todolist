@@ -1,17 +1,34 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { Layout, PageHeader } from 'antd'
+
+import { Loader } from '../../../store/duck/loader'
+import { getContacts } from '../../../store/duck/people'
+
+import NotificationService from '../../../services/notificationservice'
 
 import People from '../../../components/peoplelist'
 import AppPageContent from '../../../components/apppagecontent'
 
 const ContactsPage = () => {
 
-  const contacts = [
-    {name: 'John Doe', email: 'john.doe@mail.com'}, 
-    {name: 'Jane Doe', email: 'jane.doe@mail.com'}, 
-    {name: 'Gabriel Morningstar', email: 'gabriel.morningstar@mail.com'}
-  ]
+  const { contacts } = useSelector(state => state.people)
+  
+  const dispatch = useDispatch()
+
+  const fetchContacts = () => {
+    dispatch(Loader.show())
+
+    dispatch(getContacts())
+      .then(() => dispatch(Loader.hide()))
+      .catch(reason => {
+        dispatch(Loader.hide())
+        NotificationService.error(reason.message)
+      })
+  }
+
+  useEffect(fetchContacts, [dispatch])
 
   return (
     <Layout>

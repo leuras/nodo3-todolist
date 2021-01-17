@@ -6,5 +6,4 @@ import br.com.leuras.model.User
 interface UserRepository : BaseRepository<User> {
     @Throws(AuthenticationFailedException::class)
     fun authenticate(user: User) : User
-    fun search(keyword: String) : List<User>
 }

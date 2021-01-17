@@ -14,11 +14,9 @@ class UserServiceImpl: UserService {
     @Inject
     lateinit var repository: UserRepository
 
-    override fun get(id: Int): User = this.repository.find(id) ?: throw ModelNotFoundException("Usuário não cadastrado.")
+    override fun get(id: Int): User = this.repository.find(id) ?: throw ModelNotFoundException("User not registered.")
 
     override fun list(): List<User> = this.repository.findAll()
-
-    override fun search(keyword: String): List<User> = this.repository.search(keyword)
 
     override fun register(user: User): User {
         return try {

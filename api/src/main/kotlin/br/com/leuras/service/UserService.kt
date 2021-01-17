@@ -9,7 +9,6 @@ interface UserService {
     @Throws(ModelNotFoundException::class)
     fun get(id: Int) : User
     fun list() : List<User>
-    fun search(keyword: String) : List<User>
     @Throws(UserRegistrationException::class)
     fun register(user: User) : User
     @Throws(AuthenticationFailedException::class)

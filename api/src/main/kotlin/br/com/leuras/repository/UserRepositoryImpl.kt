@@ -29,13 +29,5 @@ class UserRepositoryImpl : AbstractRepository<User>(), UserRepository {
         }
     }
 
-    override fun search(keyword: String): List<User> {
-        val hql = "From User u Where u.name like :keyword Or u.email like :keyword"
-        val query = this.manager.createQuery(hql, User::class.java)
-        query.setParameter("keyword", keyword)
-
-        return query.resultList
-    }
-
     override fun getClassType(): Class<User> = User::class.java
 }

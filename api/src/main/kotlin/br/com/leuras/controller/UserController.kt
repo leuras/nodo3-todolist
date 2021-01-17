@@ -28,17 +28,6 @@ class UserController {
     fun list() : Response = Response.ok(this.service.list()).build()
 
     @GET
-    @Path("/search/{keyword}")
-    @Produces(MediaType.APPLICATION_JSON)
-    fun search(@PathParam("keyword") keyword: String) : Response {
-        return try {
-            Response.ok(this.service.search(keyword)).build()
-        } catch (e: Exception) {
-            Response.status(Response.Status.NOT_FOUND).build()
-        }
-    }
-
-    @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     fun profile(@PathParam("id") id: Int) : Response {
