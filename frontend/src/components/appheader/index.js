@@ -7,14 +7,14 @@ import { SmileOutlined, PoweroffOutlined } from '@ant-design/icons'
 
 import { logout } from '../../store/duck/auth'
 
-import InitialsAvatar from '../initialsavatar'
+import AppGlobalSearch from '../appglobalsearch'
 import AvatarDropdown from '../avatardropdown'
+import InitialsAvatar from '../initialsavatar'
 
 import * as Styled from './styles'
 
 const AppHeader = () => {
 
-  const history = useHistory()
   const dispatch = useDispatch()
 
   const { user } = useSelector(state => state.auth)
@@ -22,6 +22,8 @@ const AppHeader = () => {
   const profileClickHandler = () => {
     
   }
+
+  const history = useHistory()
 
   const logoutClickHandler = () => {
     dispatch(logout())
@@ -37,7 +39,7 @@ const AppHeader = () => {
     <Styled.AppHeader>
       <Row justify="center" align="space-around">
         <Col span={ 10 } offset={ 6 }>
-          <Styled.HeaderSearchInput placeholder="Search" enterButton />
+          <AppGlobalSearch />
         </Col>
         <Col span={ 8 }>
           <AvatarDropdown key="menu" avatar={ <InitialsAvatar name={ user.name } /> } options={ menuOptions } />

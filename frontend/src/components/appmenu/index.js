@@ -6,7 +6,6 @@ import { Layout, Menu } from 'antd'
 import { 
   ContactsOutlined, 
   FireOutlined,
-  SearchOutlined, 
   SoundOutlined,
   TeamOutlined , 
   TrophyOutlined, 
@@ -43,7 +42,6 @@ const AppMenu = () => {
             Contacts
             <Link to="/people/contacts"/>
           </Menu.Item>
-          <Menu.Item key="menuItemSearchContacts" icon={ <SearchOutlined /> }>Search</Menu.Item>
         </SubMenu>
       </Menu>
     </Sider>
