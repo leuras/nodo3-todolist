@@ -1,5 +1,8 @@
-export const ByTasks = { label: 'Tasks', value: 'TASKS', route: '/tasks/search' }
+export const Filters = Object.freeze({
+  TASKS: 'Tasks',
+  PEOPLE: 'People'
+})
 
-export const ByPeople = { label: 'People', value: 'PEOPLE', route: '/people/search' }
+export const values = () => Object.keys(Filters).map(key => ({ label: Filters[key], value: key }))
 
-export const Options = [ByTasks, ByPeople]
+export const valueOf = value => Filters[value]

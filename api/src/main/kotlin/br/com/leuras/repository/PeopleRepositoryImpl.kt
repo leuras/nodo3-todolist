@@ -8,9 +8,9 @@ import javax.persistence.NoResultException
 class PeopleRepositoryImpl : AbstractRepository<User>(), PeopleRepository {
 
     override fun search(keyword: String): List<User> {
-        val hql = "From User u Where u.name like :keyword Or u.email like :keyword"
+        val hql = "From User u Where lower(u.name) like :keyword Or lower(u.email) like :keyword"
         val query = this.manager.createQuery(hql, User::class.java)
-        query.setParameter("keyword", keyword)
+        query.setParameter("keyword", "%${keyword.toLowerCase()}%")
 
         return query.resultList
     }

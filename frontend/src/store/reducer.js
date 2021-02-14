@@ -5,13 +5,15 @@ import loading from './duck/loader'
 import user from './duck/user'
 import todo from './duck/todo'
 import people from './duck/people'
+import search from './duck/search'
 
 const rootReducer = combineReducers({ 
   auth,
   loading,
   user,
   todo,
-  people
+  people,
+  search
 })
 
 export default rootReducer

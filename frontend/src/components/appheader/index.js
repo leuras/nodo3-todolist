@@ -11,6 +11,7 @@ import AppGlobalSearch from '../appglobalsearch'
 import AvatarDropdown from '../avatardropdown'
 import InitialsAvatar from '../initialsavatar'
 
+import { Filters } from '../../constants/globalsearch'
 import * as Styled from './styles'
 
 const AppHeader = () => {
@@ -18,12 +19,18 @@ const AppHeader = () => {
   const dispatch = useDispatch()
 
   const { user } = useSelector(state => state.auth)
+  
+  const history = useHistory()
+
+  const onSearchCompleteHandler = (event) => {
+    if (Filters.PEOPLE === event.filterType) {
+      history.push('/people/search')
+    }
+  }
 
   const profileClickHandler = () => {
     
   }
-
-  const history = useHistory()
 
   const logoutClickHandler = () => {
     dispatch(logout())
@@ -39,7 +46,7 @@ const AppHeader = () => {
     <Styled.AppHeader>
       <Row justify="center" align="space-around">
         <Col span={ 10 } offset={ 6 }>
-          <AppGlobalSearch />
+          <AppGlobalSearch onComplete={ onSearchCompleteHandler } />
         </Col>
         <Col span={ 8 }>
           <AvatarDropdown key="menu" avatar={ <InitialsAvatar name={ user.name } /> } options={ menuOptions } />

@@ -1,24 +1,25 @@
 import restAPI from './api'
-import { store } from '../store'
+import UserService from './userservice'
+
+export const search = (keyword) => restAPI.get(`/people/search/${keyword}`)
 
 export const getContacts = () => {
-  const user = getUser()
+  const user = UserService.getAuthenticatedUser()
   return restAPI.get(`/people/${user.id}/contacts`)
 }
 
 export const addContact = (contact) => {
-  const user = getUser()
+  const user = UserService.getAuthenticatedUser()
   return restAPI.post(`/people/${user.id}/contacts/add`, contact)
 }
 
 export const removeContact = (contact) => {
-  const user = getUser()
+  const user = UserService.getAuthenticatedUser()
   return restAPI.delete(`/people/${user.id}/contacts/remove`, contact)
 }
 
-const getUser = () => store.getState().auth.user
-
 const PeopleService = {
+  search,
   getContacts,
   addContact,
   removeContact
