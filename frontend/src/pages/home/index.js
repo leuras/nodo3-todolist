@@ -18,6 +18,7 @@ import * as Styled from './styles'
 const HomePage = () => {
 
   const { user } = useSelector(state => state.auth)
+  const { items } = useSelector(state => state.todo)
   const { isUserFirstAccess } = useSelector(state => state.user)
   
   const dispatch = useDispatch()
@@ -49,11 +50,11 @@ const HomePage = () => {
     <Layout>
       <AppPageContent>
         <NewTodoInput />
-        <TodoList key="pending" show="pending" />
+        <TodoList items={ items } key="pending" show="pending" />
         <br/>
         <Collapse accordion bordered={ false }> 
           <Styled.CollapseContent header="Completed">
-            <TodoList key="completed" show="completed" />
+            <TodoList items={ items } key="completed" show="completed" />
           </Styled.CollapseContent>
         </Collapse>
       </AppPageContent>

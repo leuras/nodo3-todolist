@@ -1,4 +1,5 @@
 import { ErrorHandler } from '../../services/api'
+import TodoService from '../../services/todoservice'
 import PeopleService from '../../services/peopleservice'
 
 import { Filters } from '../../constants/globalsearch'
@@ -11,6 +12,10 @@ export const Types = {
 const serviceInvokerFactory = (filterType) => {
   if (Filters.PEOPLE === filterType) {
     return { type: Types.SEARCH_PEOPLE, service: PeopleService }
+  }
+
+  if (Filters.TASKS === filterType) {
+    return { type: Types.SEARCH_TASKS, service: TodoService }
   }
 }
 

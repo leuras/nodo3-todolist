@@ -8,7 +8,10 @@ const InitialsAvatar = (props) => {
 
   const [letters, setLetters] = useState()
   
-  useEffect(() => setLetters(initials(props.name)), [props.name])
+  useEffect(() => {
+    const chars = initials(props.name)
+    setLetters(chars.toUpperCase())
+  }, [props.name])
 
   return (
     <Styled.InitialsAvatar>{ letters }</Styled.InitialsAvatar>

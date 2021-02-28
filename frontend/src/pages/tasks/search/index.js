@@ -6,18 +6,18 @@ import { Layout, PageHeader } from 'antd'
 import TodoList from '../../../components/todolist'
 import AppPageContent from '../../../components/apppagecontent'
 
-const TasksPendingPage = () => {
+const SearchTasksPage = () => {
 
-  const { items } = useSelector(state => state.todo)
+  const { results } = useSelector(state => state.search)
 
   return (
     <Layout>
       <AppPageContent>
-        <PageHeader title="Pending Tasks" />
-        <TodoList items={ items } show="pending" />
+        <PageHeader title="Resultados" />
+        <TodoList items={ results } show="all" />
       </AppPageContent>
     </Layout>
   )
 }
 
-export default TasksPendingPage
+export default SearchTasksPage

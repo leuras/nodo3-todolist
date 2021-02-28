@@ -4,10 +4,10 @@ import PropTypes from 'prop-types'
 
 import { Select } from 'antd'
 
+import _ from 'lodash/lang'
+
 import { Loader } from '../../store/duck/loader'
 import { search } from '../../store/duck/search'
-
-import NotificationService from '../../services/notificationservice'
 
 import * as GlobalSearch from '../../constants/globalsearch'
 import * as Styled from './styles'
@@ -23,16 +23,27 @@ const AppGlobalSearch = (props) => {
   const dispatch = useDispatch()
 
   const onSearchHandler = keyword => {
-    dispatch(Loader.show())
+    if (isValidKeyword(keyword)) {
+      doSearch(keyword)
+    }
+  }
 
+  const isValidKeyword = keyword => ! _.isEmpty(keyword)
+
+  const doSearch = keyword => {
+    dispatch(Loader.show())
     dispatch(search(keyword, filterType))    
       .then(action => {
         dispatch(Loader.hide())
-        props.onComplete({ filterType, keyword, results: action.payload })
+        if (_.isFunction(props.onComplete)) {
+          props.onComplete({ filterType, keyword, results: action.payload })
+        }
       })
       .catch(reason => {
         dispatch(Loader.hide())
-        NotificationService.error(reason.message)
+        if (_.isFunction(props.onFail)) {
+          props.onFail(reason)
+        }
       })
   }
 
@@ -43,7 +54,7 @@ const AppGlobalSearch = (props) => {
   )
 
   return (
-    <Styled.HeaderSearchInput 
+    <Styled.SearchInput 
       placeholder="Search" 
       addonBefore={ FilterOptions } 
       onSearch={ onSearchHandler } 
@@ -54,7 +65,8 @@ const AppGlobalSearch = (props) => {
 }
 
 AppGlobalSearch.propTypes = {
-  onComplete: PropTypes.func.isRequired
+  onComplete: PropTypes.func,
+  onFail: PropTypes.func
 }
 
 export default AppGlobalSearch

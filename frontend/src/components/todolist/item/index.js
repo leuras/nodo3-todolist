@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
+import PropTypes from 'prop-types'
 
 import { Loader } from '../../../store/duck/loader'
 import { done, undone } from '../../../store/duck/todo'
@@ -37,6 +38,16 @@ const TodoItem = (props) => {
       <Styled.TodoItemContent completed={ completed }>{ props.value.description }</Styled.TodoItemContent>
     </div>
   )
+}
+
+const TodoItemSchema = {
+  id: PropTypes.number.isRequired,
+  description: PropTypes.string.isRequired,
+  done: PropTypes.bool.isRequired
+}
+
+TodoItem.propTypes = {
+  value: PropTypes.shape(TodoItemSchema).isRequired
 }
 
 export default TodoItem

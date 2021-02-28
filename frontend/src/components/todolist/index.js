@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
 
 import { List } from 'antd'
@@ -12,15 +11,14 @@ import * as Styled from './styles'
 
 const TodoList = (props) => {
 
-  const items = useSelector(state => state.todo.items)
-  const [todoList, setTodoList] = useState(items)
+  const [todoList, setTodoList] = useState(props.items)
 
   const doFilter = () => {
     const filter = Filters.get(props.show)
-    setTodoList(filter.filter(items))
+    setTodoList(filter.filter(props.items))
   }
 
-  useEffect(doFilter, [items, props.show])
+  useEffect(doFilter, [props.items, props.show])
    
   return (
     <Styled.TodoListItems dataSource={ todoList } renderItem={ todo => (
@@ -32,6 +30,7 @@ const TodoList = (props) => {
 }
 
 TodoList.propTypes = {
+  items: PropTypes.array.isRequired,
   show: PropTypes.oneOf(['all', 'completed', 'pending']).isRequired
 }
 

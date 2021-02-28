@@ -20,6 +20,7 @@ const LoginPage = lazy(() => import('./pages/login'))
 const RegisterPage = lazy(() => import('./pages/register'))
 const TasksPendingPage = lazy(() => import('./pages/tasks/pending'))
 const TasksCompletedPage = lazy(() => import('./pages/tasks/completed'))
+const SearchTasksPage = lazy(() => import('./pages/tasks/search'))
 const ContactsPage = lazy(() => import('./pages/people/contacts'))
 const SearchPeoplePage = lazy(() => import('./pages/people/search'))
 
@@ -41,6 +42,7 @@ const Routes = () => {
                 <RestrictedRoute exact path="/home" component={ HomePage } />
                 <RestrictedRoute exact path="/tasks/pending" component={ TasksPendingPage } />
                 <RestrictedRoute exact path="/tasks/completed" component={ TasksCompletedPage } />
+                <RestrictedRoute exact path="/tasks/search" component={ SearchTasksPage } />
                 <RestrictedRoute exact path="/people/contacts" component={ ContactsPage } />
                 <RestrictedRoute exact path="/people/search" component={ SearchPeoplePage } />
                 <Route path="*" component={ LoginPage } />
