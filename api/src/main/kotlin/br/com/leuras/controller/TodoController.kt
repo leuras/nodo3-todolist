@@ -7,7 +7,14 @@ import br.com.leuras.service.TodoService
 import br.com.leuras.service.UserService
 import javax.enterprise.context.RequestScoped
 import javax.inject.Inject
-import javax.ws.rs.*
+import javax.ws.rs.Consumes
+import javax.ws.rs.DELETE
+import javax.ws.rs.GET
+import javax.ws.rs.POST
+import javax.ws.rs.PUT
+import javax.ws.rs.Path
+import javax.ws.rs.PathParam
+import javax.ws.rs.Produces
 import javax.ws.rs.core.MediaType
 import javax.ws.rs.core.Response
 
@@ -23,7 +30,7 @@ class TodoController {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    fun list(@PathParam("userId") userId: Int) : Response {
+    fun list(@PathParam("userId") userId: Int): Response {
         return try {
             val user = this.userService.get(userId)
             Response.ok(this.todoService.list(user)).build()
@@ -38,14 +45,14 @@ class TodoController {
     @Path("/add")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    fun add(@PathParam("userId") userId: Int, todo: Todo) : Response = Response.status(Response.Status.CREATED)
+    fun add(@PathParam("userId") userId: Int, todo: Todo): Response = Response.status(Response.Status.CREATED)
         .entity(this.todoService.add(todo))
         .build()
 
     @PUT
     @Path("/{id}/done")
     @Produces(MediaType.APPLICATION_JSON)
-    fun done(@PathParam("userId") userId: Int, @PathParam("id") id: Int) : Response {
+    fun done(@PathParam("userId") userId: Int, @PathParam("id") id: Int): Response {
         return try {
             val todo = this.todoService.done(this.todoService.get(id))
             Response.ok(todo).build()
@@ -59,7 +66,7 @@ class TodoController {
     @PUT
     @Path("/{id}/undone")
     @Produces(MediaType.APPLICATION_JSON)
-    fun undone(@PathParam("userId") userId: Int, @PathParam("id") id: Int) : Response {
+    fun undone(@PathParam("userId") userId: Int, @PathParam("id") id: Int): Response {
         return try {
             val todo = this.todoService.undone(this.todoService.get(id))
             Response.ok(todo).build()
@@ -72,7 +79,7 @@ class TodoController {
 
     @DELETE
     @Path("/{id}")
-    fun delete(@PathParam("userId") userId: Int, @PathParam("id") id: Int) : Response {
+    fun delete(@PathParam("userId") userId: Int, @PathParam("id") id: Int): Response {
         return try {
             this.todoService.delete(Todo(id = id))
             Response.noContent().build()

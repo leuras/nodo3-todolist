@@ -25,12 +25,12 @@ class UserController {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    fun list() : Response = Response.ok(this.service.list()).build()
+    fun list(): Response = Response.ok(this.service.list()).build()
 
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    fun profile(@PathParam("id") id: Int) : Response {
+    fun profile(@PathParam("id") id: Int): Response {
         return try {
             Response.ok(this.service.get(id)).build()
         } catch (e: ModelNotFoundException) {
@@ -44,7 +44,7 @@ class UserController {
     @Path("/register")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    fun register(user: User) : Response {
+    fun register(user: User): Response {
         return try {
             Response.status(Response.Status.CREATED)
                 .entity(this.service.register(user))

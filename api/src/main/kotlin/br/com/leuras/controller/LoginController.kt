@@ -23,7 +23,7 @@ class LoginController {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    fun login(user: User) : Response {
+    fun login(user: User): Response {
         return try {
             Response.ok(this.service.authenticate(user)).build()
         } catch (e: AuthenticationFailedException) {

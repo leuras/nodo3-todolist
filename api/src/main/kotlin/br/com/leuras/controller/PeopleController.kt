@@ -7,7 +7,13 @@ import br.com.leuras.service.PeopleService
 import br.com.leuras.service.UserService
 import javax.enterprise.context.RequestScoped
 import javax.inject.Inject
-import javax.ws.rs.*
+import javax.ws.rs.Consumes
+import javax.ws.rs.DELETE
+import javax.ws.rs.GET
+import javax.ws.rs.POST
+import javax.ws.rs.Path
+import javax.ws.rs.PathParam
+import javax.ws.rs.Produces
 import javax.ws.rs.core.MediaType
 import javax.ws.rs.core.Response
 
@@ -24,7 +30,7 @@ class PeopleController {
     @GET
     @Path("/search/{keyword}")
     @Produces(MediaType.APPLICATION_JSON)
-    fun search(@PathParam("keyword") keyword: String) : Response {
+    fun search(@PathParam("keyword") keyword: String): Response {
         return try {
             Response.ok(this.peopleService.search(keyword)).build()
         } catch (e: Exception) {
@@ -35,7 +41,7 @@ class PeopleController {
     @GET
     @Path("/{userId}/contacts")
     @Produces(MediaType.APPLICATION_JSON)
-    fun contacts(@PathParam("userId") userId: Int) : Response {
+    fun contacts(@PathParam("userId") userId: Int): Response {
         return try {
             val user = this.userService.get(userId)
             Response.ok(this.peopleService.contactsOf(user)).build()
@@ -49,7 +55,7 @@ class PeopleController {
     @POST
     @Path("/{userId}/contacts/add")
     @Consumes(MediaType.APPLICATION_JSON)
-    fun addContact(@PathParam("userId") userId: Int, contact: User) : Response {
+    fun addContact(@PathParam("userId") userId: Int, contact: User): Response {
         return try {
             val user = this.userService.get(userId)
             this.peopleService.addContact(user, contact)
@@ -65,7 +71,7 @@ class PeopleController {
     @DELETE
     @Path("/{userId}/contacts/remove")
     @Consumes(MediaType.APPLICATION_JSON)
-    fun removeContact(@PathParam("userId") userId: Int, contact: User) : Response {
+    fun removeContact(@PathParam("userId") userId: Int, contact: User): Response {
         return try {
             val user = this.userService.get(userId)
             this.peopleService.removeContact(user, contact)
