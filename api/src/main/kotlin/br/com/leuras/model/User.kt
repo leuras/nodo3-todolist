@@ -1,6 +1,15 @@
 package br.com.leuras.model
 
-import javax.persistence.*
+import javax.persistence.CascadeType
+import javax.persistence.Entity
+import javax.persistence.FetchType
+import javax.persistence.GeneratedValue
+import javax.persistence.GenerationType
+import javax.persistence.Id
+import javax.persistence.JoinColumn
+import javax.persistence.JoinTable
+import javax.persistence.OneToMany
+import javax.persistence.Table
 
 @Entity
 @Table(name = "user")
@@ -15,6 +24,7 @@ data class User(
     @JoinTable(
         name = "contact",
         joinColumns = [JoinColumn(name = "id_user")],
-        inverseJoinColumns = [JoinColumn(name = "id_contact")])
+        inverseJoinColumns = [JoinColumn(name = "id_contact")]
+    )
     var contacts: MutableList<User> = mutableListOf()
 )
